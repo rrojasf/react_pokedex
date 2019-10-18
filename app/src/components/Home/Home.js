@@ -5,10 +5,24 @@ import PokemonThumb from "../elements/PokemonThumb/PokemonThumb"
 import LoadMoreBtn from "../elements/LoadMoreBtn/LoadMoreBtn"
 import Spinner from "../elements/Spinner/Spinner"
 
+import {
+  API_URL,
+  API_KEY,
+  IMAGE_BASE_URL,
+  BACKDROP_SIZE,
+  POSTER_SIZE
+} from "../../config"
+
 import "./Home.css"
 
 class Home extends Component {
-  state = {}
+  state = {
+    items: [],
+    loading: false,
+    currentPage: 0,
+    totalPages: 0,
+    searchTerm: ""
+  }
 
   render() {
     return (
