@@ -205,7 +205,12 @@ class Home extends Component {
               itemUrl={this.state.pokemon.url}
             ></Pokemon>
           ) : (
-            <h1>No Pokemon!</h1>
+            <Pokemon
+              image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" //{`${ASSETS_URL}${this.state.pokemon.itemId}.png`}
+              itemId="4" //{this.state.pokemon.itemId}
+              itemName="charmander" //{this.state.pokemon.name}
+              itemUrl="https://pokeapi.co/api/v2/pokemon/4/" //{this.state.pokemon.url}
+            ></Pokemon>
           )}
         </div>
       </div>

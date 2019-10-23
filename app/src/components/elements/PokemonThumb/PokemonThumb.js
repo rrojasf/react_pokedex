@@ -80,9 +80,9 @@ class PokemonThumb extends Component {
             >
               <img src={this.props.image} alt={this.props.itemName}></img>
             </figure>
-            <div class="pokemon-info">
-              <p class="id">
-                <span class="number-prefix">#</span>
+            <div className="pokemon-info">
+              <p className="id">
+                <span className="number-prefix">#</span>
                 {this.setPokemonId(this.props.itemId)}
               </p>
               <h3>{this.props.itemName}</h3>
