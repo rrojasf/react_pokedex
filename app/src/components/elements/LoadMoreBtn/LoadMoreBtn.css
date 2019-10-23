@@ -1,0 +1,22 @@
+.pokedex-loadmore-btn {
+  background: #16d47b;
+  width: 25%;
+  min-height: 36px;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 10px;
+  vertical-align: middle;
+  margin: 22px auto;
+}
+
+.pokedex-loadmore-btn p {
+  font-family: "Abel", sans-serif;
+  font-size: 42px;
+  padding: 20px;
+}
+
+.pokedex-loadmore-btn:hover {
+  opacity: 0.8;
+}

@@ -1,0 +1,23 @@
+.pokedex-home {
+  margin-bottom: 100px;
+}
+
+.pokedex-pokemon-view {
+  width: 60%;
+  float: left;
+  background: #fff;
+}
+/* 1c1c1c */
+.pokedex-detail-view {
+  width: 40%;
+  height: auto;
+  float: right;
+  background: #fff;
+  max-height: 100%;
+}
+
+.pokedex-grid {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+}

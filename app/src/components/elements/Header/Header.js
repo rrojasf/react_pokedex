@@ -3,9 +3,9 @@ import "./Header.css"
 
 const Header = () => {
   return (
-    <div class="pokedex-header">
+    <div className="pokedex-header">
       <div className="pokedex-header-content">
-        <img className="pokedex-logo" src="./logo192.png"></img>
+        <img className="pokedex-logo" src="./pokedex-icon.png" alt="logo"></img>
       </div>
     </div>
   )
