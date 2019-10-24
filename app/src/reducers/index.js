@@ -1,6 +1,18 @@
-import { combineReducers } from "redux"
-import pokemons from "./pokemons"
+import { SELECT_POKEMON } from "../actions"
 
-export default combineReducers({
-  pokemons
-})
+const initialState = {
+  sItem: 1
+}
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case SELECT_POKEMON:
+      return {
+        number: state.number + 1
+      }
+    default:
+      return state
+  }
+}
+
+export default reducer

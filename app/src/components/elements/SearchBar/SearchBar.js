@@ -11,12 +11,6 @@ class SearchBar extends Component {
 
   doSearch = event => {
     this.setState({ value: event.target.value })
-
-    clearTimeout(this.timeout)
-
-    this.setTimeout = this.setTimeout(() => {
-      this.props.callback(this.state.value)
-    }, 500)
   }
 
   render() {

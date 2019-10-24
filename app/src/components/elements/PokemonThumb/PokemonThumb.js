@@ -1,54 +1,32 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 
-import {
-  API_URL,
-  API_KEY,
-  IMAGE_BASE_URL,
-  BACKDROP_SIZE,
-  POSTER_SIZE,
-  PAGE_OFFSET,
-  PAGE_LIMIT,
-  ASSETS_URL
-} from "../../../config"
+import { API_URL } from "../../../config"
+import formatPokemonId from "../../helpers/formatters"
 
 import "./PokemonThumb.css"
 
 // const PokemonThumb = props => {
 class PokemonThumb extends Component {
-  constructor({ pokemon }) {
-    super()
-    this.state = {
-      pokemon,
-      data: null
-    }
-    //console.log("constructor")
+  constructor(props) {
+    super(props)
   }
 
   selectPokemon = pokemon => {
-    console.log(pokemon)
-
+    // console.log(pokemon)
     const endpoint = `${API_URL}pokemon/${pokemon.itemId}`
 
     this.setState({ loading: true })
     this.fetchItem(endpoint)
   }
 
-  setPokemonId = itemId => {
-    while (itemId.length < 3) {
-      itemId = "0" + itemId
+  setPokemonId = pokemonId => {
+    while (pokemonId.length < 3) {
+      pokemonId = "0" + pokemonId
     }
 
-    return itemId
+    return pokemonId
   }
-
-  /*componentWillMount() {
-    const { pokemon } = this.state
-    const endpoint = `${API_URL}pokemon/${pokemon.itemId}`
-
-    this.setState({ loading: true })
-    this.fetchItem(endpoint)
-  } */
 
   fetchItem = endpoint => {
     fetch(endpoint)
@@ -58,17 +36,13 @@ class PokemonThumb extends Component {
         if (result.status_code) {
           this.setState({ loading: false })
         } else {
-          this.setState({ pokemon: result })
-
-          console.dir(result)
+          this.setState({ selectedPokemon: result })
+          this.props.onSelectedPokemon(this.state.selectedPokemon)
         }
       })
   }
 
   render() {
-    const { onPokemonClick } = this.props
-    const { pokemon, data } = this.state
-
     return (
       <div className="pokedex-pokemon-thumbnail">
         {this.props.clickable ? (
@@ -102,7 +76,10 @@ PokemonThumb.propTypes = {
   clickable: PropTypes.bool
 }
 
-export default PokemonThumb
+const mapStateToProps = state => {
+  return {
+    selectedItem: state
+  }
+}
 
-//pathname: `/${props.itemName}`,
-// pokemonName: `${props.itemName}`
+export default PokemonThumb

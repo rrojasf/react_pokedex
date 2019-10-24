@@ -1,42 +1,32 @@
 import React, { Component } from "react"
 import queryString from "query-string"
-import { connect } from "react-redux"
 
 import SearchBar from "../elements/SearchBar/SearchBar"
 import ThreeColGrid from "../elements/ThreeColGrid/ThreeColGrid"
 import PokemonThumb from "../elements/PokemonThumb/PokemonThumb"
 import LoadMoreBtn from "../elements/LoadMoreBtn/LoadMoreBtn"
-import Pokemon from "../Pokemon/Pokemon"
+import Pokemon from "../elements/Pokemon/Pokemon"
 import Spinner from "../elements/Spinner/Spinner"
 
-import { selectPokemon } from "../../actions"
-import { store } from "../../store"
-
-import {
-  API_URL,
-  API_KEY,
-  IMAGE_BASE_URL,
-  BACKDROP_SIZE,
-  POSTER_SIZE,
-  PAGE_OFFSET,
-  PAGE_LIMIT,
-  ASSETS_URL
-} from "../../config"
+import { API_URL, PAGE_OFFSET, ASSETS_URL } from "../../config"
 
 import "./Home.css"
 
 class Home extends Component {
-  state = {
-    items: [],
-    loading: false,
-    totalItems: 0,
-    currentPage: 0,
-    totalPages: 0,
-    prevPage: null,
-    nextPage: null,
-    currPage: null,
-    searchTerm: "",
-    selectedItem: null
+  constructor(props) {
+    super(props)
+    this.state = {
+      items: [],
+      loading: false,
+      totalItems: 0,
+      currentPage: 0,
+      totalPages: 0,
+      prevPage: null,
+      nextPage: null,
+      currPage: null,
+      searchTerm: "",
+      selectedPokemon: null
+    }
   }
 
   componentDidMount() {
@@ -57,29 +47,17 @@ class Home extends Component {
     fetch(endpoint)
       .then(result => result.json())
       .then(result => {
-        // console.log(result)
-        /*if (localStorage.getItem("HomeState")) {
-          const state = JSON.parse(localStorage.getItem("HomeState"))
-
-          this.setState({ ...state })
-        } else { */
-        this.setState(
-          {
-            items: [...this.state.items, ...result.results],
-            loading: false,
-            totalItems: result.count,
-            currentPage: this.getCurrentPageFromEndpoint(endpoint), //result.next
-            totalPages: this.getTotalPages(result.count),
-            prevPage: result.previous,
-            nextPage: result.next,
-            currPage: endpoint,
-            pokemon: null
-          },
-          () => {
-            localStorage.setItem("HomeState", JSON.stringify(this.state))
-          }
-        )
-        // }
+        this.setState({
+          items: [...this.state.items, ...result.results],
+          loading: false,
+          totalItems: result.count,
+          currentPage: this.getCurrentPageFromEndpoint(endpoint), //result.next
+          totalPages: this.getTotalPages(result.count),
+          prevPage: result.previous,
+          nextPage: result.next,
+          currPage: endpoint,
+          selectedPokemon: null
+        })
       })
       .catch(error => console.error("Error:", error))
   }
@@ -122,11 +100,10 @@ class Home extends Component {
     return roundPages
   }
 
-  handleSelectedPokemon = pokemon => {
-    this.setState({ pokemon })
-    store.dispatch(selectPokemon(pokemon))
-
-    console.log("Selected Pokemon:", pokemon)
+  handleSelectedPokemon = selectedPokemon => {
+    this.setState({ selectedPokemon })
+    // store.dispatch(selectPokemon(selectedItem))
+    console.log("Selected Pokemon:", selectedPokemon)
   }
 
   loadMoreItems = () => {
@@ -196,21 +173,10 @@ class Home extends Component {
           </div>
         </div>
         <div className="pokedex-detail-view">
-          {this.state.pokemon ? (
-            <Pokemon
-              clickable={true}
-              image={`${ASSETS_URL}${this.state.pokemon.itemId}.png`}
-              itemId={this.state.pokemon.itemId}
-              itemName={this.state.pokemon.name}
-              itemUrl={this.state.pokemon.url}
-            ></Pokemon>
+          {this.state.selectedPokemon ? (
+            <Pokemon selectedPokemon={this.state.selectedPokemon}></Pokemon>
           ) : (
-            <Pokemon
-              image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" //{`${ASSETS_URL}${this.state.pokemon.itemId}.png`}
-              itemId="4" //{this.state.pokemon.itemId}
-              itemName="charmander" //{this.state.pokemon.name}
-              itemUrl="https://pokeapi.co/api/v2/pokemon/4/" //{this.state.pokemon.url}
-            ></Pokemon>
+            <div>Nuevo Pokemon</div>
           )}
         </div>
       </div>
@@ -218,13 +184,6 @@ class Home extends Component {
   }
 }
 
-const mapDispatchToPropsActions = dispatch => ({
-  selectPokemon: value => dispatch(selectPokemon(value))
-})
+// const HomeConnected = connect(mapStateToProps)(Home)
 
-const HomeConnected = connect(
-  null,
-  mapDispatchToPropsActions
-)(Home)
-
-export default HomeConnected
+export default Home

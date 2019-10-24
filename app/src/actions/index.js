@@ -1,4 +1,1 @@
-export const selectPokemon = value => ({
-  type: "SELECT_POKEMON",
-  value
-})
+export const SELECT_POKEMON = "SELECT_POKEMON"

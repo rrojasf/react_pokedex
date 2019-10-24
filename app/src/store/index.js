@@ -1,5 +1,5 @@
 import { createStore } from "redux"
 
-import pokedexApp from "../reducers"
+import reducer from "../reducers"
 
-export const store = createStore(pokedexApp)
+export const store = createStore(reducer)
