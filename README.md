@@ -11,3 +11,5 @@
 7. Option for Select Pagination Style or Infinite Scroll View
 8. Implement Search Box
 9. Unit Testing?
+
+Deploymen Test: https://pedantic-albattani-593f8f.netlify.com
